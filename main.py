@@ -162,7 +162,27 @@ def show_menu():
             else:
                 print("Please choose 1, 2, 3 or enter a valid option.")
 
-   
+
+        elif choice == "delete" or choice == "5":
+                        
+            while True:
+        
+                try:
+                    ticket_id = int(input("Select ticket ID to delete ticket"))
+                    result = search_ticket(ticket_id)
+                    if result is not None:
+                        break
+                    else:
+                        print(f"Ticket with ID {ticket_id} not found")
+
+                except ValueError:
+                    print("ticket_id has to be int")
+            if result is not None:
+                decision = input(f"Do you realy wish to delete ticket {ticket_id}? (yes/no) ").strip().lower()
+                if decision == "yes":
+                    delete_ticket(ticket_id)
+                else:
+                    continue
 
         elif choice == "exit" or choice == "6":
             break
