@@ -1,0 +1,18 @@
+[
+    {
+        "ticket_id": 1,
+        "title": "Hallo",
+        "description": "Dies ist ein Test",
+        "status": "In progress",
+        "priority": "Critical",
+        "category": "Software"
+    },
+    {
+        "ticket_id": 2,
+        "title": "hasd",
+        "description": "asd",
+        "status": "In progress",
+        "priority": "Medium",
+        "category": "Hardware"
+    }
+]

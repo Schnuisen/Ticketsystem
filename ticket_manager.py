@@ -1,6 +1,11 @@
 from ticket import Ticket
+from status import Status
+from priority import Priority
+from category import Category
+import json
 
 ticket_list = []
+
 
 ###CREATE / GENERATE###
 def generate_ticket_id():
@@ -89,3 +94,37 @@ def update_description(ticket_id, new_description):
         ticket.description = new_description
         return ticket
 ###################################
+
+def save_ticket():
+    ticket_data = []
+
+    for ticket in ticket_list:
+
+        ticket_dictionary = {
+            "ticket_id": ticket.ticket_id,
+            "title": ticket.title,
+            "description": ticket.description,
+            "status": ticket.status.value,
+            "priority": ticket.priority.value,
+            "category": ticket.category.value
+        }
+        ticket_data.append(ticket_dictionary)
+
+    with open("tickets.json", "w") as file:
+        json.dump(ticket_data, file, indent=4)
+
+def load_tickets():
+    with open("tickets.json", "r") as file:
+        ticket_data = json.load(file)
+
+        for data in ticket_data:
+            ticket = Ticket(
+                data["ticket_id"],
+                data["title"],
+                data["description"],
+                Status(data["status"]),
+                Priority(data["priority"]),
+                Category(data["category"])
+            )            
+
+        ticket_list.append(ticket)

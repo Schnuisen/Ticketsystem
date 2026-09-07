@@ -7,7 +7,7 @@ from ticket_manager import *
 
 
 
-
+load_tickets()
 def show_menu():
 
     while True:
@@ -65,6 +65,7 @@ def show_menu():
                     print("Please choose 1,2,3 or a valid category")
 
             create_ticket(title,description,status,priority,category)
+            save_ticket()
         ######################################
 
         elif choice == "show all tickets" or choice == "2":
@@ -101,6 +102,7 @@ def show_menu():
 
                 except ValueError:
                     print("ticket_id has to be int")
+                    
 
             choose_update = input("1 - Update status\n2 - Update priority\n3 - Update category\n4 - Update title\n5 - Update description").strip().lower()
             if choose_update == "1" or choose_update == "update status":
@@ -160,11 +162,11 @@ def show_menu():
                 update_category(ticket_id,new_category)              
 
             elif choose_update == "4" or choose_update == "Update title":
-                new_title = input("New title: ").strip().lower()
+                new_title = input("New title: ")
                 update_title(ticket_id,new_title)
 
             elif choose_update == "5" or choose_update == "Update description":
-                new_description = input("New description: ").strip().lower()
+                new_description = input("New description: ")
                 update_description(ticket_id,new_description)    
                     
             else:
