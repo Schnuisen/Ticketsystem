@@ -74,6 +74,18 @@ def update_category(ticket_id, new_category):
     if ticket is not None:
         ticket.category = new_category
         return ticket
-    
+
     return None
+
+def update_title(ticket_id, new_title):
+    ticket = search_ticket(ticket_id)
+    if ticket is not None:
+        ticket.title = new_title
+        return ticket
+
+def update_description(ticket_id, new_description):
+    ticket = search_ticket(ticket_id)
+    if ticket is not None:
+        ticket.description = new_description
+        return ticket
 ###################################
