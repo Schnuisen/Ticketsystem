@@ -35,6 +35,7 @@ def delete_ticket(ticket_id):
 
     if ticket is not None:
         ticket_list.remove(ticket)
+        save_ticket()
         return ticket
 
     return None
@@ -62,6 +63,7 @@ def update_status(ticket_id,new_status):
     ticket = search_ticket(ticket_id)
     if ticket is not None:
         ticket.status = new_status
+        save_ticket()
         return ticket
     
     return None
@@ -70,6 +72,7 @@ def update_priority(ticket_id, new_priority):
     ticket = search_ticket(ticket_id)
     if ticket is not None:
         ticket.priority = new_priority
+        save_ticket()
         return ticket
     
     return None
@@ -78,6 +81,7 @@ def update_category(ticket_id, new_category):
     ticket = search_ticket(ticket_id)
     if ticket is not None:
         ticket.category = new_category
+        save_ticket()
         return ticket
 
     return None
@@ -86,12 +90,14 @@ def update_title(ticket_id, new_title):
     ticket = search_ticket(ticket_id)
     if ticket is not None:
         ticket.title = new_title
+        save_ticket()
         return ticket
 
 def update_description(ticket_id, new_description):
     ticket = search_ticket(ticket_id)
     if ticket is not None:
         ticket.description = new_description
+        save_ticket()
         return ticket
 ###################################
 
@@ -114,17 +120,20 @@ def save_ticket():
         json.dump(ticket_data, file, indent=4)
 
 def load_tickets():
-    with open("tickets.json", "r") as file:
-        ticket_data = json.load(file)
+    try:    
+        with open("tickets.json", "r") as file:
+            ticket_data = json.load(file)
+    except FileNotFoundError:
+        return
 
-        for data in ticket_data:
-            ticket = Ticket(
-                data["ticket_id"],
-                data["title"],
-                data["description"],
-                Status(data["status"]),
-                Priority(data["priority"]),
-                Category(data["category"])
-            )            
+    for data in ticket_data:
+        ticket = Ticket(
+            data["ticket_id"],
+            data["title"],
+            data["description"],
+            Status(data["status"]),
+            Priority(data["priority"]),
+            Category(data["category"])
+        )            
 
         ticket_list.append(ticket)

@@ -1,1 +1,1 @@
-When updating ticket, you can not exit the update option if there is no ticket id. Need to implement exit option
+When updating ticket, you cannot exit the update option if there is no ticket id. Need to implement exit option
