@@ -3,7 +3,15 @@ from status import Status
 from priority import Priority
 from category import Category
 import json
+import os
+import sys
 
+if getattr(sys, "frozen", False):
+    BASE_DIR = os.path.dirname(sys.executable)
+else:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+JSON_FILE = os.path.join(BASE_DIR, "tickets.json")
 ticket_list = []
 
 
@@ -26,6 +34,8 @@ def create_ticket(title,description,status,priority,category):
     new_ticket = Ticket(generated_id,title,description,status,priority,category)
 
     ticket_list.append(new_ticket)
+
+    save_ticket()
     return new_ticket
 ###################################
 
@@ -116,12 +126,12 @@ def save_ticket():
         }
         ticket_data.append(ticket_dictionary)
 
-    with open("tickets.json", "w") as file:
+    with open(JSON_FILE, "w", encoding="utf-8") as file:
         json.dump(ticket_data, file, indent=4)
 
 def load_tickets():
     try:    
-        with open("tickets.json", "r") as file:
+        with open(JSON_FILE, "r", encoding="utf-8") as file:
             ticket_data = json.load(file)
     except FileNotFoundError:
         return
